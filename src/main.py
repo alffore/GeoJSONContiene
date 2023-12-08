@@ -27,7 +27,7 @@ def lee_poligonos(archivo):
 
         for d in data['features']:
             if d['geometry']['type'] == 'Polygon':
-                procesa_poligonos(d['properties']['damage_gra'], d['geometry']['coordinates'][0])
+                procesa_poligonos(d['properties']['cve_col'], d['geometry']['coordinates'][0])
             elif d['geometry']['type'] == 'MultiPolygon':
                 for pols in d['geometry']['coordinates']:
                     procesa_poligonos(d['properties']['damage_gra'], pols[0])
@@ -80,8 +80,8 @@ def procesa_aprox(recurso):
 
 
 if __name__ == '__main__':
-    ARCHIVO_POL1 = sys.argv(1)
-    ARCHIVO_REC = sys.argv(2)
+    ARCHIVO_POL1 = sys.argv[1]
+    ARCHIVO_REC = sys.argv[2]
 
     lee_recursos(ARCHIVO_REC)
     print(recs)
@@ -103,7 +103,7 @@ if __name__ == '__main__':
     # recs_clas = recs_clas + resultados_aprox
     # print(recs_clas)
 
-    with open('_salida.txt', 'w') as ft:
+    with open(f'{ARCHIVO_REC}_salida.txt', 'w') as ft:
         for r in recs_clas:
             aux = [r[1][0], r[1][2], r[0], r[2]]
             ft.write("|".join(aux))
